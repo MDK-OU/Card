@@ -1,0 +1,43 @@
+<html>
+  <head>
+      <title>MindAR.js: Minimal example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <!-- MindAR related files, which need to be attached -->
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <a-scene mindar-image="imageTargetSrc: Dog.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <audio id="FroggyTime" src="FroggyTime.mp3"></audio>
+    </a-assets>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        <a-entity mindar-image-target="targetIndex: 0">
+        <a-entity id="logo2" scale=".5 .5 .5" geometry="primitive: plane;"
+        material="src: Me.PNG" position=".25 0 0"></a-entity>
+        <a-entity position="0 0 0.1">
+          <!-- Play Button -->
+          <a-entity id="Froggy" class="interactive" scale="0.2 0.2 0.2" geometry="primitive: plane;"
+              material="src: Frog.jpg; transparent: true" position="0 0 0.1" sound="src: #FroggyTime">
+          </a-entity>
+        </a-entity>
+    </a-scene>
+  </body>
+  <script>
+    var Froggy = document.querySelector("#Froggy");
+    var FroggyTime = document.querySelector("FroggyTime");
+
+    Froggy.addEventListener('click', () => {
+
+        Audio.play();
+        Froggy.setAttribute("visible", false);
+        Froggy.setAttribute("position", "-4 0 0.1")
+    });
+    Audio.addEventListener('ended', () => {
+        Froggy.setAttribute("position", "0 0 0.1")
+        Froggy.setAttribute("visible", true);
+
+    });
+    </script>
+</html>
